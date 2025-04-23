@@ -1,0 +1,80 @@
+﻿/* Enhanced professional UI styling for Ecommerce */
+
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex-grow: 1;
+}
+
+/* Navbar brand */
+a.navbar-brand {
+    white-space: nowrap;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #0d6efd !important;
+}
+
+/* General link color */
+a {
+    color: #0d6efd;
+}
+
+/* Buttons */
+.btn-primary {
+    color: #fff;
+    background-color: #0d6efd;
+    border-color: #0b5ed7;
+}
+
+.btn-outline-primary {
+    color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+    .btn-outline-primary:hover {
+        background-color: #0d6efd;
+        color: #fff;
+    }
+
+/* Nav pills */
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #fff;
+    background-color: #0d6efd;
+}
+
+/* Layout spacing and visual polish */
+.border-top {
+    border-top: 1px solid #dee2e6;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #dee2e6;
+}
+
+.box-shadow {
+    box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075);
+}
+
+/* Footer */
+.footer {
+    font-size: 0.9rem;
+    text-align: center;
+    padding: 1rem 0;
+    background-color: #f8f9fa;
+    color: #6c757d;
+    margin-top: auto;
+}
+
+/* Accept policy button */
+button.accept-policy {
+    font-size: 1rem;
+    line-height: 1.5;
+}

@@ -1,0 +1,78 @@
+﻿@model IEnumerable<Ecommerce.Models.Order>
+@{
+    ViewData["Title"] = "Adminpanel – Beställningar";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@foreach (var order in Model)
+{
+    <div class="mb-4 p-3 border rounded bg-white shadow-sm">
+        <table class="table table-sm table-borderless mb-2">
+            <thead class="table-light">
+                <tr>
+                    <th>OrderID</th>
+                    <th>Kund</th>
+                    <th>Datum</th>
+                    <th>Adress</th>
+                    <th>Totalt</th>
+                    <th>Status</th>
+                    <th>Åtgärder</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@order.Id</td>
+                    <td>@order.UserEmail</td>
+                    <td>@order.OrderDate.ToLocalTime().ToString("yyyy-MM-dd HH:mm")</td>
+                    <td>
+                        @if (!string.IsNullOrWhiteSpace(order.ShippingAddress?.Street))
+                        {
+                            @order.ShippingAddress.Street
+
+                            <br />
+                            @order.ShippingAddress.PostalCode @order.ShippingAddress.City
+                        }
+                        else
+                        {
+                            <em>(ingen adress)</em>
+                        }
+                    </td>
+                    <td>@order.TotalAmount.ToString("C")</td>
+                    <td>
+                        @if (order.IsShipped)
+                        {
+                            <span class="badge bg-success">Skickad</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-warning text-dark">Obehandlad</span>
+                        }
+                    </td>
+                    <td>
+                        @if (!order.IsShipped)
+                        {
+                            <form asp-controller="Admin" asp-action="MarkShipped" method="post" class="d-inline">
+                                <input type="hidden" name="id" value="@order.Id" />
+                                <button type="submit" class="btn btn-sm btn-success">Markera som skickad</button>
+                            </form>
+                        }
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="ps-2">
+            <strong>Produkter:</strong>
+            <ul class="mb-0">
+                @foreach (var item in order.Items)
+                {
+                    var total = item.Quantity * item.UnitPrice;
+                    <li>
+                        <strong>@item.ProductName</strong> – @item.Quantity st x @item.UnitPrice.ToString("C") = @total.ToString("C")
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+}

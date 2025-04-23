@@ -1,0 +1,81 @@
+﻿@model Ecommerce.Models.ProductDetailsViewModel
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+
+@{
+    ViewData["Title"] = Model.Product.Name;
+}
+
+<h2>@Model.Product.Name</h2>
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+        <h4>Description</h4>
+        <p>@Model.Product.Description</p>
+
+        <h5>Price</h5>
+        <p><strong>@Model.Product.Price.ToString("C")</strong></p>
+
+        @if (Model.Product.Categories != null && Model.Product.Categories.Any())
+        {
+            <p><strong>Categories:</strong> @string.Join(", ", Model.Product.Categories)</p>
+        }
+
+        <p><strong>Average Rating:</strong> @Model.AverageRating.ToString("0.0") ⭐</p>
+    </div>
+</div>
+
+<hr />
+
+<h3>Reviews</h3>
+
+@if (Model.Reviews.Any())
+{
+    <ul class="list-group">
+        @foreach (var review in Model.Reviews)
+        {
+            <li class="list-group-item">
+                <strong>@review.UserName</strong> (@review.Date.ToLocalTime().ToShortDateString())<br />
+                <span>Rating: @review.Rating/5</span><br />
+                <p>@review.Content</p>
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <p>No reviews yet.</p>
+}
+
+<hr />
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <h4>Leave a Review</h4>
+    <form asp-action="AddReview" method="post">
+        <input type="hidden" name="productId" value="@Model.Product.Id" />
+
+        <div class="form-group">
+            <label for="rating">Rating</label>
+            <select name="rating" class="form-control" required>
+                <option disabled selected value="">Select a rating</option>
+                @for (int i = 1; i <= 5; i++)
+                {
+                    <option value="@i">@i</option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="content">Review</label>
+            <textarea name="content" class="form-control" rows="4" required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-2">Submit Review</button>
+    </form>
+}
+else
+{
+    <p><a asp-area="Identity" asp-page="/Account/Login">Log in</a> to leave a review.</p>
+}

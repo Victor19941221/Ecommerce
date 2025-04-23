@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Ecommerce.Models.Product>
+@{
+    ViewData["Title"] = "Products";
+    string currentCategory = ViewBag.CurrentCategory ?? "All";
+    List<string> categories = ViewBag.Categories ?? new List<string>();
+
+}
+
+<div class="container py-4">
+    <h1 class="mb-4">Our Products</h1>
+
+    <!-- Dynamisk kategori-navbar -->
+    <nav class="mb-4">
+        <ul class="nav nav-pills">
+            <li class="nav-item">
+                <a asp-action="Index" class="nav-link @(currentCategory == "All" ? "active" : "")">All</a>
+            </li>
+            @foreach (var cat in categories)
+            {
+                <li class="nav-item">
+                    <a asp-action="Index" asp-route-category="@cat"
+                       class="nav-link @(currentCategory == cat ? "active" : "")">
+                        @cat
+                    </a>
+                </li>
+            }
+        </ul>
+    </nav>
+
+    <!-- Produkter -->
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
+        @foreach (var product in Model)
+        {
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">@product.Name</h5>
+                        <p class="card-text">@product.Description</p>
+                        <p class="card-text fw-bold">@product.Price.ToString("C")</p>
+                        <div class="mt-auto pt-2">
+                            <a asp-action="Details" asp-route-id="@product.Id" class="btn btn-outline-primary">View</a>
+                            <button type="button"
+                                    class="btn btn-primary ms-2 add-to-cart-btn"
+                                    data-product-id="@product.Id">
+                                Add to Cart
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
