@@ -28,7 +28,7 @@ This documentation is meant for **future team members or interview candidates** 
 
 ### Prerequisites
 
-- [.NET 6 SDK](https://dotnet.microsoft.com/download)
+- [.NET 9 SDK](https://dotnet.microsoft.com/download)
 - [MongoDB](https://www.mongodb.com/try/download/community) (local or cloud)
 - [Stripe account](https://dashboard.stripe.com/register) with API keys
 
@@ -37,7 +37,7 @@ This documentation is meant for **future team members or interview candidates** 
 1. **Clone the Repository**
 
 ```bash
-git clone https://github.com/your-org/ecommerce.git
+git clone https://github.com/Victor19941221/ecommerce.git
 cd ecommerce
 ```
 
@@ -55,7 +55,7 @@ Update the file with your MongoDB and Stripe settings:
   "SecretKey": "your-secret-key"
 },
 "Admin": {
-  "Email": "vlarsson347@gmail.com"
+  "Email": "mail@mail.com"
 }
 ```
 
@@ -124,16 +124,6 @@ The app will be available at `https://localhost:5001`
 
 ---
 
-## Extending the App
-
-To add a new feature:
-
-1. Add a new model
-2. Add a service method
-3. Create a Razor Page or Controller endpoint
-4. Secure it using `[Authorize]` if needed
-5. Style it using Bootstrap classes
-6. Write tests in a test project
 
 ---
 
@@ -144,16 +134,6 @@ Seed admin by adding email adresses for admin in appsettings.json
 **Admin Email**: `example@gmail.com`
 
 After registration, the startup logic will assign the admin role if the email matches.
-
----
-
-## Contribution Guidelines
-
-- Follow C# naming conventions
-- Keep business logic in Services
-- Use Razor Pages for UI
-- Use `[Authorize]` to protect routes
-- Keep commits small and meaningful
 
 ---
 
